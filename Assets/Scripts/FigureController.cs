@@ -7,21 +7,29 @@ public class FigureController : MonoBehaviour
 {
     [SerializeField] GameObject block;
     [SerializeField] int framesToDrop = 150;
+    [SerializeField] int accelerationThenDownPressed = 3;
 
     public UnityAction onFigureFixed;
 
     private FigureScriptableObj fig;
-    private bool hasWalls = true;
+    private bool hasWalls = false;
     private List<GameObject> FigureBlocks;
     private BoardController boardController;
     private int[] rotMatrix = { 0, 1, -1, 0 };
+    private int blocksOnOtherSide = 0;
 
     void Update()
     {
         LeftRightInput();
-        RotationInput();
+        
+        //если фигура разделена на несколько частей ее нельзя вращать, важно в случае отсутствия стен
+        if(blocksOnOtherSide == 0)
+        {
+            RotationInput();
+        }
 
-        if(Time.frameCount % framesToDrop == 0)
+        //каждые framesToDrop фреймов опускаем фигуру вниз, а когда нажата Кнопка вниз делаем это чаще 
+        if (Time.frameCount % framesToDrop == 0 || (Input.GetAxis("Vertical")<0 && Time.frameCount % (int)framesToDrop/accelerationThenDownPressed == 0))
         {
             if (!checkFloor())
             {
@@ -77,34 +85,8 @@ public class FigureController : MonoBehaviour
             {
                 Move(-1, 0);
             }
-            //Debug.Log("1" + FigureBlocks[0].transform.position);
-            //Debug.Log("\n");
         }
     }
-
-    /*private void RotationInput()
-    {
-        int[] matrix = { 0, 1, -1, 0 };
-
-        Vector3 point = new Vector3(fig.center.x+transform.position.x, fig.center.y+transform.position.y, 0);
-
-        if (Input.GetButtonDown("RotateClock"))
-        {
-            transform.RotateAround(point, Vector3.forward, -90);
-            if (checkRightWalls() || checkFloor() || checkValidState() || checkLeftWalls())
-            {
-                transform.RotateAround(point, Vector3.forward, 90);
-            }
-        }
-        else if (Input.GetButtonDown("RotateAntiClock"))
-        {
-            transform.RotateAround(point, Vector3.forward, 90);
-            if (checkRightWalls() || checkFloor() || checkValidState() || checkLeftWalls())
-            {
-                transform.RotateAround(point, Vector3.forward, -90);
-            }
-        }
-    }*/
 
 
     private void RotationInput()
@@ -117,6 +99,7 @@ public class FigureController : MonoBehaviour
                 Rotate(bl, 1);
             }
 
+            //если возникли какие-либо коллизии после вращения отменяем его
             if (checkRightWalls() || checkFloor() || checkValidState() || checkLeftWalls())
             {
                 foreach (GameObject bl in FigureBlocks)
@@ -133,6 +116,7 @@ public class FigureController : MonoBehaviour
                 Rotate(bl, -1);
             }
 
+            //если возникли какие-либо коллизии после вращения отменяем его
             if (checkRightWalls() || checkFloor() || checkValidState() || checkLeftWalls())
             {
                 foreach (GameObject bl in FigureBlocks)
@@ -143,10 +127,12 @@ public class FigureController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Вращение с учетом положения центра фигуры
+    /// </summary>
     private void Rotate(GameObject bl, int dir)
     {
         int x, y;
-
         x = Mathf.CeilToInt(((bl.transform.localPosition.x + fig.center.x) * rotMatrix[0] * dir) + ((bl.transform.localPosition.y + fig.center.y) * rotMatrix[1] * dir));
         y = Mathf.CeilToInt(((bl.transform.localPosition.x + fig.center.x) * rotMatrix[2] * dir) + ((bl.transform.localPosition.y + fig.center.y) * rotMatrix[3] * dir));
         bl.transform.localPosition = new Vector3(x, y, bl.transform.localPosition.z);
@@ -158,6 +144,46 @@ public class FigureController : MonoBehaviour
     private void Move(int x, int y)
     {
         transform.position+= new Vector3(x, y, 0);
+        if (!hasWalls)
+        {
+            NoWallsFix();
+        }
+    }
+
+    private void NoWallsFix()
+    {
+        //количество блоков, разделенных с основной фигурой
+        blocksOnOtherSide = 0;
+        foreach (GameObject bl in FigureBlocks)
+        {
+            if (bl.transform.position.x == -1)
+            {
+                bl.transform.Translate(boardController.getWigth(), 0, 0);
+            }
+            if (bl.transform.position.x == boardController.getWigth())
+            {
+                bl.transform.Translate(-boardController.getWigth(), 0, 0);
+            }
+            if (Mathf.Abs(bl.transform.localPosition.x) >= boardController.getWigth() / 2)
+            {
+                blocksOnOtherSide++;
+            }
+
+        }
+        Debug.Log(blocksOnOtherSide);
+
+        //если вся фигура перешла через границу
+        if (blocksOnOtherSide == FigureBlocks.Count)
+        {
+            //направление сдвига всей фигуры
+            int dir = FigureBlocks[0].transform.localPosition.x>0 ? 1 : -1;
+            Debug.Log("перешли");
+            foreach (GameObject bl in FigureBlocks)
+            {
+                bl.transform.Translate(new Vector3(-1 * dir * boardController.getWigth(), 0, 0));
+            }
+            transform.Translate(new Vector3(dir * boardController.getWigth(), 0, 0));
+        }
     }
 
     /// <summary>
@@ -229,6 +255,7 @@ public class FigureController : MonoBehaviour
         {
             boardController.setTile( (int)block.transform.position.x, (int)block.transform.position.y, block);
         }
+        boardController.CheckDeleteLines();
 
         onFigureFixed?.Invoke();
         Destroy(this.gameObject);

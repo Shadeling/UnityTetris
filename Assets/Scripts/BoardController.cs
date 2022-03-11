@@ -71,4 +71,9 @@ public class BoardController : MonoBehaviour
             }
         }
     }
+
+    public void CheckDeleteLines()
+    {
+
+    }
 }

@@ -45,4 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   block: {fileID: 8908170844543970048, guid: f6deb799ff438d94d864722b64699fa0, type: 3}
-  framesToDrop: 150000
+  framesToDrop: 150
