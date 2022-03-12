@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c254f6b2de9d834b90f2995c4e7beb1, type: 3}
+  m_Name: GameMode1
+  m_EditorClassIdentifier: 
+  set: {fileID: 11400000, guid: 463a6ffd39cd0d142b41082378dcff02, type: 2}
+  boardHeight: 20
+  boardWight: 10
+  hasWalls: 1
+  linesToDestroy: 1
+  framesToDrop: 150

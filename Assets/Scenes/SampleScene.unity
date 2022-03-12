@@ -327,7 +327,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1852287930}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.5431969, y: 0.02787444, z: -10.043751}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -346,8 +346,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd38f5d90b4caf248b3936325927f063, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heigth: 20
-  wigth: 12
   boardBlock: {fileID: 8908170844543970048, guid: eee4226d8aafa2843984ee8f9eab26ff, type: 3}
 --- !u!114 &1852287933
 MonoBehaviour:
@@ -361,5 +359,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75457849f85841448914547c47cb4b27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  set: {fileID: 11400000, guid: 463a6ffd39cd0d142b41082378dcff02, type: 2}
+  gm: {fileID: 11400000, guid: b50676b6fd7c18d40b94954b872c3900, type: 2}
   figurePrefab: {fileID: 2659289877157794882, guid: 510efb5f7e1546a4285586ced9f807a7, type: 3}

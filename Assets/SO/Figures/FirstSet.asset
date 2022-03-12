@@ -15,4 +15,4 @@ MonoBehaviour:
   FugureSet:
   - {fileID: 11400000, guid: 05c58b522b8d5dc4f8e245950ce35349, type: 2}
   - {fileID: 11400000, guid: 35db152834f3eb2478d4d236168821e9, type: 2}
-  probability: 3200000032000000
+  probability: 6400000000000000

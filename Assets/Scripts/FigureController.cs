@@ -12,11 +12,11 @@ public class FigureController : MonoBehaviour
     public UnityAction onFigureFixed;
 
     private FigureScriptableObj fig;
-    private bool hasWalls = false;
     private List<GameObject> FigureBlocks;
     private BoardController boardController;
     private int[] rotMatrix = { 0, 1, -1, 0 };
     private int blocksOnOtherSide = 0;
+    private bool hasWalls = false;
 
     void Update()
     {
@@ -48,12 +48,20 @@ public class FigureController : MonoBehaviour
     /// </summary>
     /// <param name="figure">геометрия фигуры</param>
     /// <param name="board">ссылка на контроллер доски</param>
-    public void Init(FigureScriptableObj figure, BoardController board)
+    public void Init(FigureScriptableObj figure, BoardController board, bool walls, int framesToDrop)
     {
         fig = figure;
         boardController = board;
+        hasWalls = walls;
+        this.framesToDrop = framesToDrop;
         FigureBlocks = new List<GameObject>();
         spawnFigure();
+    }
+
+    public void ChangeGameMode(GameModeSO gm)
+    {
+        onFigureFixed?.Invoke();
+        Destroy(this.gameObject);
     }
 
     /// <summary>
@@ -65,6 +73,10 @@ public class FigureController : MonoBehaviour
         {
             GameObject newBlock = Instantiate(block, transform);
             newBlock.transform.Translate(bl.x, bl.y, 0);
+            if(fig.FigureMaterial != null)
+            {
+                newBlock.GetComponent<Renderer>().material = fig.FigureMaterial;
+            }
             FigureBlocks.Add(newBlock);
         }
     }
@@ -100,7 +112,7 @@ public class FigureController : MonoBehaviour
             }
 
             //если возникли какие-либо коллизии после вращения отменяем его
-            if (checkRightWalls() || checkFloor() || checkValidState() || checkLeftWalls())
+            if (checkValidState())
             {
                 foreach (GameObject bl in FigureBlocks)
                 {
@@ -117,7 +129,7 @@ public class FigureController : MonoBehaviour
             }
 
             //если возникли какие-либо коллизии после вращения отменяем его
-            if (checkRightWalls() || checkFloor() || checkValidState() || checkLeftWalls())
+            if (checkValidState())
             {
                 foreach (GameObject bl in FigureBlocks)
                 {
@@ -232,13 +244,13 @@ public class FigureController : MonoBehaviour
     }
 
     /// <summary>
-    /// Проверка является ли текущее состояние стабильным, true если есть наложения блоков
+    /// Проверка является ли текущее состояние стабильным, true если есть наложения блоков или выходы за границы
     /// </summary>
     private bool checkValidState()
     {
         foreach (GameObject bl in FigureBlocks)
         {
-            if (boardController.checkTile((int)bl.transform.position.x, (int)bl.transform.position.y))
+            if (boardController.checkTile((int)bl.transform.position.x, (int)bl.transform.position.y) || bl.transform.position.x<0 || bl.transform.position.x>boardController.getWigth() || bl.transform.position.y <0 || bl.transform.position.y > boardController.getHeigth())
             {
                 return true;
             }
