@@ -13,7 +13,7 @@ public class BoardController : MonoBehaviour
     private int heigth = 20;
     private int wigth = 10;
 
-    private void Start()
+    private void Awake()
     {
         transform.position = Vector3.zero;
         tileMap = new List<List<GameObject>>();
@@ -162,6 +162,9 @@ public class BoardController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Все изменения доски, необходимые при смене режима игры
+    /// </summary>
     public void ChangeGameMode(GameModeSO gm)
     {
         this.linesToDestroy = gm.linesToDestroy;

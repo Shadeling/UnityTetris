@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2020507486658088627}
   - component: {fileID: 4119517590869593679}
+  - component: {fileID: 3553648206883163424}
   m_Layer: 0
   m_Name: Figure
   m_TagString: Untagged
@@ -46,3 +47,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   block: {fileID: 8908170844543970048, guid: f6deb799ff438d94d864722b64699fa0, type: 3}
   framesToDrop: 150
+  accelerationThenDownPressed: 3
+--- !u!114 &3553648206883163424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2659289877157794882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbca76572bf48f846890997cfa1e2f70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  action: {fileID: 11400000, guid: 4023b2a4b675dbd4ab172e3c8e253507, type: 2}
+  unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

@@ -301,6 +301,53 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1670707052
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1670707054}
+  - component: {fileID: 1670707053}
+  m_Layer: 0
+  m_Name: UI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1670707053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1670707052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a540fb0a9ff58a5489663b09694b6ee5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameModeChanged: {fileID: 11400000, guid: 4023b2a4b675dbd4ab172e3c8e253507, type: 2}
+  gamemodes:
+  - {fileID: 11400000, guid: b50676b6fd7c18d40b94954b872c3900, type: 2}
+--- !u!4 &1670707054
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1670707052}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.44171685, y: 3.453068, z: -9.725326}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1852287930
 GameObject:
   m_ObjectHideFlags: 0
@@ -312,6 +359,7 @@ GameObject:
   - component: {fileID: 1852287931}
   - component: {fileID: 1852287932}
   - component: {fileID: 1852287933}
+  - component: {fileID: 1852287934}
   m_Layer: 0
   m_Name: Board
   m_TagString: Untagged
@@ -359,5 +407,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75457849f85841448914547c47cb4b27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gm: {fileID: 11400000, guid: b50676b6fd7c18d40b94954b872c3900, type: 2}
   figurePrefab: {fileID: 2659289877157794882, guid: 510efb5f7e1546a4285586ced9f807a7, type: 3}
+  gm: {fileID: 11400000, guid: b50676b6fd7c18d40b94954b872c3900, type: 2}
+--- !u!114 &1852287934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1852287930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbca76572bf48f846890997cfa1e2f70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  action: {fileID: 11400000, guid: 4023b2a4b675dbd4ab172e3c8e253507, type: 2}
+  unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1852287932}
+        m_TargetAssemblyTypeName: BoardController, Assembly-CSharp
+        m_MethodName: ChangeGameMode
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1852287933}
+        m_TargetAssemblyTypeName: FigureSpawner, Assembly-CSharp
+        m_MethodName: ChangeGameMode
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

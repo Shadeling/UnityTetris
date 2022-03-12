@@ -58,12 +58,6 @@ public class FigureController : MonoBehaviour
         spawnFigure();
     }
 
-    public void ChangeGameMode(GameModeSO gm)
-    {
-        onFigureFixed?.Invoke();
-        Destroy(this.gameObject);
-    }
-
     /// <summary>
     /// Первоначальное создание каждого блока фигуры из FigureScriptableObj и его сдвиг
     /// </summary>

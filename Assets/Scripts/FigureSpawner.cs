@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class FigureSpawner : MonoBehaviour
 {
-    [SerializeField] GameModeSO gm;
     [SerializeField] GameObject figurePrefab;
 
     private BoardController boardController;
+    private GameObject figure;
+    [SerializeField] private GameModeSO gm;
 
     void Start()
     {
@@ -25,7 +26,7 @@ public class FigureSpawner : MonoBehaviour
             
             if (rand < gm.set.probability[i] + sum)
             {
-                GameObject figure = Instantiate(figurePrefab, transform);
+                figure = Instantiate(figurePrefab, transform);
                 figure.transform.Translate(new Vector3((int)boardController.getWigth()/2, boardController.getHeigth() - 2, -1));
                 figure.GetComponent<FigureController>().Init(gm.set.FugureSet[i], boardController, gm.hasWalls, gm.framesToDrop);
                 figure.GetComponent<FigureController>().onFigureFixed+=spawnFigure;
@@ -37,6 +38,8 @@ public class FigureSpawner : MonoBehaviour
 
     public void ChangeGameMode(GameModeSO gm)
     {
+        Debug.Log("gamemode");
         this.gm = gm;
+        Destroy(figure);
     }
 }
