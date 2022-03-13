@@ -1756,6 +1756,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boardBlock: {fileID: 8908170844543970048, guid: eee4226d8aafa2843984ee8f9eab26ff, type: 3}
   scoreChange: {fileID: 11400000, guid: dbbad88307a14f54ba0fca4b054bfbee, type: 2}
+  gameOverAction: {fileID: 11400000, guid: 05ead7a19ad2b9a40970c897aae874b1, type: 2}
 --- !u!114 &1852287933
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1769,7 +1770,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   figurePrefab: {fileID: 2659289877157794882, guid: 510efb5f7e1546a4285586ced9f807a7, type: 3}
-  gameover: {fileID: 11400000, guid: 05ead7a19ad2b9a40970c897aae874b1, type: 2}
+  gameOverAction: {fileID: 11400000, guid: 05ead7a19ad2b9a40970c897aae874b1, type: 2}
 --- !u!1 &1872049197
 GameObject:
   m_ObjectHideFlags: 0
@@ -1828,11 +1829,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0412\u044B \u043F\u0440\u043E\u0438\u0433\u0440\u0430\u043B\u0438 \u0441\u043E
-    \u0441\u0447\u0435\u0442\u043E\u043C "
+  m_text: '
+
+'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
+  m_sharedMaterial: {fileID: 2140474, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
