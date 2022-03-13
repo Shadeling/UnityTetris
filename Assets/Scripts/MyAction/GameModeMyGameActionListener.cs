@@ -26,7 +26,6 @@ public class GameModeMyGameActionListener : MonoBehaviour, IMyGameActionListener
 
     public void OnEventRaised(GameModeSO gamemode)
     {
-        Debug.Log("EventRaised");
         unityEvent.Invoke(gamemode);
     }
 }

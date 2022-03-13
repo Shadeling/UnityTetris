@@ -176,14 +176,11 @@ public class FigureController : MonoBehaviour
             }
 
         }
-        Debug.Log(blocksOnOtherSide);
-
-        //если вся фигура перешла через границу
+        //если все блоки фигуры перешли через границу, сдвигаем родителя
         if (blocksOnOtherSide == FigureBlocks.Count)
         {
             //направление сдвига всей фигуры
             int dir = FigureBlocks[0].transform.localPosition.x>0 ? 1 : -1;
-            Debug.Log("перешли");
             foreach (GameObject bl in FigureBlocks)
             {
                 bl.transform.Translate(new Vector3(-1 * dir * boardController.getWigth(), 0, 0));
@@ -240,7 +237,7 @@ public class FigureController : MonoBehaviour
     /// <summary>
     /// Проверка является ли текущее состояние стабильным, true если есть наложения блоков или выходы за границы
     /// </summary>
-    private bool checkValidState()
+    public bool checkValidState()
     {
         foreach (GameObject bl in FigureBlocks)
         {

@@ -6,6 +6,7 @@ using UnityEngine;
 public class BoardController : MonoBehaviour
 {
     [SerializeField] GameObject boardBlock;
+    [SerializeField] IntMyGameAction scoreChange;
 
     private List<GameObject> board;
     private List<List<GameObject>> tileMap;
@@ -135,6 +136,8 @@ public class BoardController : MonoBehaviour
                 }
                 MoveBoardDown(linesToDestroy, i+1);
                 i -= linesToDestroy;
+
+                scoreChange.Trigger(linesToDestroy * wigth);
             }
 
         }
@@ -146,19 +149,13 @@ public class BoardController : MonoBehaviour
         {
             for (int j = 0; j < wigth; j++)
             {
-                tileMap[i-y][j]=tileMap[i][j];
-                tileMap[i][j] = null;
-                StartCoroutine(MoveBlockDown(tileMap[i-y][j], y));
+                if(tileMap[i][j] != null)
+                {
+                    tileMap[i - y][j] = tileMap[i][j];
+                    tileMap[i][j] = null;
+                    tileMap[i - y][j].transform.Translate(new Vector3(0, -y));
+                }
             }
-        }
-    }
-
-    IEnumerator MoveBlockDown(GameObject block, int y)
-    {
-        for (int i=0; i<y; i++)
-        {
-            block.transform.Translate(new Vector3(0, -1));
-            yield return new WaitForSeconds(0.5f);
         }
     }
 

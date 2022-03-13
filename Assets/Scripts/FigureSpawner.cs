@@ -5,15 +5,15 @@ using UnityEngine;
 public class FigureSpawner : MonoBehaviour
 {
     [SerializeField] GameObject figurePrefab;
+    [SerializeField] IntMyGameAction gameover;
 
     private BoardController boardController;
     private GameObject figure;
-    [SerializeField] private GameModeSO gm;
+    private GameModeSO gm;
 
-    void Start()
+    void Awake()
     {
         boardController = GetComponent<BoardController>();
-        spawnFigure();
     }
 
     private void spawnFigure()
@@ -28,8 +28,15 @@ public class FigureSpawner : MonoBehaviour
             {
                 figure = Instantiate(figurePrefab, transform);
                 figure.transform.Translate(new Vector3((int)boardController.getWigth()/2, boardController.getHeigth() - 2, -1));
-                figure.GetComponent<FigureController>().Init(gm.set.FugureSet[i], boardController, gm.hasWalls, gm.framesToDrop);
-                figure.GetComponent<FigureController>().onFigureFixed+=spawnFigure;
+                FigureController figCont = figure.GetComponent<FigureController>();
+                figCont.Init(gm.set.FugureSet[i], boardController, gm.hasWalls, gm.framesToDrop);
+                figCont.onFigureFixed+=spawnFigure;
+                if (figCont.checkValidState())
+                {
+                    Destroy(figure);
+                    gameover.Trigger(0);
+                }
+
                 break;
             }
             sum += gm.set.probability[i];
@@ -38,8 +45,9 @@ public class FigureSpawner : MonoBehaviour
 
     public void ChangeGameMode(GameModeSO gm)
     {
-        Debug.Log("gamemode");
         this.gm = gm;
         Destroy(figure);
+
+        spawnFigure();
     }
 }
