@@ -22,7 +22,7 @@ public class UIController : MonoBehaviour
     {
         Time.timeScale = 0f;
         gameOverPopUp.SetActive(true);
-        gameOverText.text = "Вы проиграли со счетом " + score.ToString();
+        gameOverText.text = "Your score: " + score.ToString();
     }
 
     public void GameOverReverse()

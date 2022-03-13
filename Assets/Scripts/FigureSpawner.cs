@@ -5,7 +5,7 @@ using UnityEngine;
 public class FigureSpawner : MonoBehaviour
 {
     [SerializeField] GameObject figurePrefab;
-    [SerializeField] IntMyGameAction gameover;
+    [SerializeField] IntMyGameAction gameOverAction;
 
     private BoardController boardController;
     private GameObject figure;
@@ -18,6 +18,7 @@ public class FigureSpawner : MonoBehaviour
 
     private void spawnFigure()
     {
+
         int rand = Random.Range(0, 100);
         int sum = 0;
 
@@ -27,14 +28,16 @@ public class FigureSpawner : MonoBehaviour
             if (rand < gm.set.probability[i] + sum)
             {
                 figure = Instantiate(figurePrefab, transform);
-                figure.transform.Translate(new Vector3((int)boardController.getWigth()/2, boardController.getHeigth() - 2, -1));
+                figure.transform.Translate(new Vector3((int)boardController.getWigth()/2, boardController.getHeigth()-2, -1));
                 FigureController figCont = figure.GetComponent<FigureController>();
                 figCont.Init(gm.set.FugureSet[i], boardController, gm.hasWalls, gm.framesToDrop);
                 figCont.onFigureFixed+=spawnFigure;
+                
+                //если при спауне возникают коллизии - конец игры
                 if (figCont.checkValidState())
                 {
                     Destroy(figure);
-                    gameover.Trigger(0);
+                    gameOverAction.Trigger(0);
                 }
 
                 break;

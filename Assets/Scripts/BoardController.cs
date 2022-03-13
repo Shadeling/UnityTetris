@@ -7,6 +7,7 @@ public class BoardController : MonoBehaviour
 {
     [SerializeField] GameObject boardBlock;
     [SerializeField] IntMyGameAction scoreChange;
+    [SerializeField] IntMyGameAction gameOverAction;
 
     private List<GameObject> board;
     private List<List<GameObject>> tileMap;
@@ -43,12 +44,12 @@ public class BoardController : MonoBehaviour
     }
 
     /// <summary>
-    /// «анесение блока в матрицу Board по координатам X, Y
+    /// «анесение блока в матрицу Board по координатам X, Y. ¬озвр€щает False если выход за границы
     /// </summary>
     public void setTile(int x, int y, GameObject block)
     {
-        block.transform.parent = transform;
-        tileMap[y][x] = block;
+            block.transform.parent = transform;
+            tileMap[y][x] = block;
     }
 
 
@@ -74,6 +75,10 @@ public class BoardController : MonoBehaviour
         }
     }
 
+
+    /// <summary>
+    /// ќчистка и переинициализаци€ игровой доски нужного размера
+    /// </summary>
     public void ResetTiles()
     {
         for (int i = 0; i < tileMap.Count; i++)
@@ -143,6 +148,12 @@ public class BoardController : MonoBehaviour
         }
     }
 
+
+    /// <summary>
+    /// —двиг доски вниз
+    /// </summary>
+    /// <param name="y">на сколько линий сдвигать</param>
+    /// <param name="startWith">с какой линии начинать</param>
     private void MoveBoardDown(int y, int startWith)
     {
         for (int i = startWith; i < heigth; i++)

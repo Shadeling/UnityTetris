@@ -7,7 +7,7 @@ public class FigureController : MonoBehaviour
 {
     [SerializeField] GameObject block;
     [SerializeField] int framesToDrop = 150;
-    [SerializeField] int accelerationThenDownPressed = 3;
+    [SerializeField] int accelerationThenDownPressed = 5;
 
     public UnityAction onFigureFixed;
 
@@ -196,10 +196,18 @@ public class FigureController : MonoBehaviour
     {
         foreach (GameObject bl in FigureBlocks)
         {
-            if ( ((int)bl.transform.position.x <= 0 && hasWalls) || boardController.checkTile((int)bl.transform.position.x, (int)bl.transform.position.y))
+            if ( ((int)bl.transform.position.x <= 0 && hasWalls) || boardController.checkTile((int)bl.transform.position.x - 1, (int)bl.transform.position.y))
             {
                 return true;
             }
+            if(!hasWalls && (int)bl.transform.position.x == 0)
+            {
+                if(boardController.checkTile(boardController.getWigth() - 1, (int)bl.transform.position.y))
+                {
+                    return true;
+                }
+            }
+
         }
         return false;
     }
@@ -214,6 +222,15 @@ public class FigureController : MonoBehaviour
             if ( ((int)bl.transform.position.x >= boardController.getWigth()-1 && hasWalls) || boardController.checkTile((int)bl.transform.position.x + 1 , (int)bl.transform.position.y))
             {
                 return true;
+            }
+
+            //если нет стен и на другой стороне уже имеется блок
+            if (!hasWalls && (int)bl.transform.position.x == boardController.getWigth() - 1)
+            {
+                if(boardController.checkTile(0, (int)bl.transform.position.y))
+                {
+                    return true;
+                }
             }
         }
         return false;
@@ -256,7 +273,7 @@ public class FigureController : MonoBehaviour
     {
         foreach(GameObject block in FigureBlocks)
         {
-            boardController.setTile( (int)block.transform.position.x, (int)block.transform.position.y, block);
+            boardController.setTile((int)block.transform.position.x, (int)block.transform.position.y, block);
         }
         boardController.CheckDeleteLines();
 
