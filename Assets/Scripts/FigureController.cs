@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class FigureController : MonoBehaviour
 {
     [SerializeField] GameObject block;
-    [SerializeField] int framesToDrop = 150;
+    [SerializeField] float timeToDrop = 0.5f;
     [SerializeField] int accelerationThenDownPressed = 5;
 
     public UnityAction onFigureFixed;
@@ -17,9 +17,11 @@ public class FigureController : MonoBehaviour
     private int[] rotMatrix = { 0, 1, -1, 0 };
     private int blocksOnOtherSide = 0;
     private bool hasWalls = false;
+    private float time = 0;
 
     void Update()
     {
+        time+=Time.deltaTime;
         LeftRightInput();
         
         //если фигура разделена на несколько частей ее нельзя вращать, важно в случае отсутствия стен
@@ -29,8 +31,9 @@ public class FigureController : MonoBehaviour
         }
 
         //каждые framesToDrop фреймов опускаем фигуру вниз, а когда нажата Кнопка вниз делаем это чаще 
-        if (Time.frameCount % framesToDrop == 0 || (Input.GetAxis("Vertical")<0 && Time.frameCount % (int)framesToDrop/accelerationThenDownPressed == 0))
+        if (time > timeToDrop || (Input.GetAxis("Vertical")<0 && time > timeToDrop/accelerationThenDownPressed))
         {
+            time = 0;
             if (!checkFloor())
             {
                 Move(0, -1);
@@ -48,12 +51,12 @@ public class FigureController : MonoBehaviour
     /// </summary>
     /// <param name="figure">геометрия фигуры</param>
     /// <param name="board">ссылка на контроллер доски</param>
-    public void Init(FigureScriptableObj figure, BoardController board, bool walls, int framesToDrop)
+    public void Init(FigureScriptableObj figure, BoardController board, bool walls, float timeToDrop)
     {
         fig = figure;
         boardController = board;
         hasWalls = walls;
-        this.framesToDrop = framesToDrop;
+        this.timeToDrop = timeToDrop;
         FigureBlocks = new List<GameObject>();
         spawnFigure();
     }

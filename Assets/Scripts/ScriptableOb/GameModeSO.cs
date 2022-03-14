@@ -13,5 +13,5 @@ public class GameModeSO : ScriptableObject
     [SerializeField] public int boardWight;
     [SerializeField] public bool hasWalls;
     [SerializeField] public int linesToDestroy;
-    [SerializeField] public int framesToDrop;
+    [SerializeField] public float timeToDrop;
 }

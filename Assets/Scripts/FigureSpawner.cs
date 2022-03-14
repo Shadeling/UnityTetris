@@ -30,7 +30,7 @@ public class FigureSpawner : MonoBehaviour
                 figure = Instantiate(figurePrefab, transform);
                 figure.transform.Translate(new Vector3((int)boardController.getWigth()/2, boardController.getHeigth()-2, -1));
                 FigureController figCont = figure.GetComponent<FigureController>();
-                figCont.Init(gm.set.FugureSet[i], boardController, gm.hasWalls, gm.framesToDrop);
+                figCont.Init(gm.set.FugureSet[i], boardController, gm.hasWalls, gm.timeToDrop);
                 figCont.onFigureFixed+=spawnFigure;
                 
                 //если при спауне возникают коллизии - конец игры

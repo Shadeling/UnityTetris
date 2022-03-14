@@ -17,4 +17,4 @@ MonoBehaviour:
   boardWight: 10
   hasWalls: 1
   linesToDestroy: 1
-  framesToDrop: 150
+  timeToDrop: 0.5
